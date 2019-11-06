@@ -16,8 +16,12 @@ logging.basicConfig(
         level=LOG_LEVEL
 )
 
+# Remote
+from remote import remote
+
 class RemonPi:
     path = str(pathlib.Path(__file__).resolve().parent)
+    remote = None
 
     def __init__(self):
         logging.info(":: RemonPi Initialize...")
@@ -33,6 +37,9 @@ class RemonPi:
             raise Exception("REMONPI_MODEL is not defined!")
 
         logging.info(":: Vendor/Model choosed: %s/%s" % (vendor, model))
+
+        # Remote
+        self.remote = remote.Remote(self, vendor, model)
 
         # Web Server
         HTTP_PORT = os.getenv('HTTP_PORT')
