@@ -2,7 +2,7 @@
 set -e
 cd "$(dirname "$0")"
 
-TARGET="http://192.168.20.100:8080"
+TARGET="http://localhost:8080"
 
 if [ "$1" = "remote" ]; then
     if [ "$2" = "get" ]; then
