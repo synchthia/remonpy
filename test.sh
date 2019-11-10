@@ -2,6 +2,8 @@
 set -e
 cd "$(dirname "$0")"
 
+TARGET="http://192.168.20.100:8080"
+
 if [ "$1" = "remote" ]; then
     if [ "$2" = "get" ]; then
         set -x
@@ -9,7 +11,7 @@ if [ "$1" = "remote" ]; then
         curl -fsSL \
             -X GET \
             -H 'Content-Type: application/json' \
-            http://localhost:8080/api/v1/remote | jq .
+            $TARGET/api/v1/remote | jq .
 
         set +x
     fi
@@ -20,7 +22,7 @@ if [ "$1" = "remote" ]; then
                 -X POST \
                 -H 'Content-Type: application/json' \
                 -d '{"operation": true, "mode": "cool", "temp": 28, "fan": "high", "vertical_vane": "auto", "horizontal_vane": "keep"}' \
-                http://localhost:8080/api/v1/remote | jq .
+                $TARGET/api/v1/remote | jq .
             set +x
         fi
         if [ "$3" = "full" ]; then
@@ -29,7 +31,7 @@ if [ "$1" = "remote" ]; then
                 -X POST \
                 -H 'Content-Type: application/json' \
                 -d '{"operation": true, "mode": "cool", "mode_data": {"cool": {"temp": 28, "fan": "auto", "vertical_vane": "auto", "horizontal_vane": "keep"}}}' \
-                http://localhost:8080/api/v1/remote | jq .
+                $TARGET/api/v1/remote | jq .
             set +x
         fi
         if [ "$3" = "off" ]; then
@@ -38,7 +40,7 @@ if [ "$1" = "remote" ]; then
                 -X POST \
                 -H 'Content-Type: application/json' \
                 -d '{"operation": false, "mode": "cool", "temp": 28, "fan": "auto", "vertical_vane": "auto", "horizontal_vane": "keep"}' \
-                http://localhost:8080/api/v1/remote | jq .
+                $TARGET/api/v1/remote | jq .
             set +x
         fi
         if [ "$3" = "dry" ]; then
@@ -47,7 +49,7 @@ if [ "$1" = "remote" ]; then
                 -X POST \
                 -H 'Content-Type: application/json' \
                 -d '{"operation": true, "mode": "dry", "fan": "auto", "vertical_vane": "auto", "horizontal_vane": "keep"}' \
-                http://localhost:8080/api/v1/remote | jq .
+                $TARGET/api/v1/remote | jq .
             set +x
         fi
 
@@ -57,7 +59,7 @@ if [ "$1" = "remote" ]; then
                 -X POST \
                 -H 'Content-Type: application/json' \
                 -d '{"operation": false, "mode": "cool", "temp": 28, "fan": "auto"}' \
-                http://localhost:8080/api/v1/remote | jq .
+                $TARGET/api/v1/remote | jq .
             set +x
         fi
 
