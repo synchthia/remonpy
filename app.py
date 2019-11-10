@@ -3,7 +3,10 @@
 import os
 import pathlib
 import logging
-import web
+from server import web
+
+# Remote
+from remote import remote
 
 # Logging
 LOG_LEVEL = logging.INFO
@@ -15,9 +18,6 @@ logging.basicConfig(
         datefmt='%Y/%m/%d %H:%M:%S %z',
         level=LOG_LEVEL
 )
-
-# Remote
-from remote import remote
 
 class RemonPi:
     path = str(pathlib.Path(__file__).resolve().parent)
@@ -36,7 +36,7 @@ class RemonPi:
         if model is None:
             raise Exception("REMONPI_MODEL is not defined!")
 
-        logging.info(":: Vendor/Model choosed: %s/%s" % (vendor, model))
+        logging.info(":: Vendor/Model choosed: %s/%s", vendor, model)
 
         # Remote
         self.remote = remote.Remote(self, vendor, model)

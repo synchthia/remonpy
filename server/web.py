@@ -22,8 +22,9 @@ class RemoteHandler(tornado.web.RequestHandler):
     def post(self):
         try:
             req = tornado.escape.json_decode(self.request.body)
-            res = json.dumps(req, ensure_ascii=False)
-            self.write(res)
+            d = json.dumps(req, ensure_ascii=False)
+            self.app.remote.controller.set(req)
+            self.write(d)
         except json.decoder.JSONDecodeError as ex:
             raise tornado.web.HTTPError(
                 status_code=400,
